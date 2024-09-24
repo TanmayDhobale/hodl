@@ -2,7 +2,7 @@ import { PublicKey, Transaction, SystemProgram } from '@solana/web3.js';
 import { useConnection } from './utils/ConnectionProvider';
 import { AnchorWallet } from './utils/AnchorWallet'; 
 
-const VAULT_PUBLIC_KEY = new PublicKey('VaultPublicKey'); // Replace with your vault public key
+const VAULT_PUBLIC_KEY = new PublicKey('6UtmLFJ5sBXh2WHZqyWPWrwA9n1o2KubdZDWnBQgXC8o');
 
 export const deposit = async (wallet: AnchorWallet, amount: number) => {
   const { connection } = useConnection();

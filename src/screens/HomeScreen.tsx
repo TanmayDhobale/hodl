@@ -20,7 +20,7 @@ export function HomeScreen() {
 
   const handleWithdraw = async () => {
     if (selectedAccount) {
-      const signature = await withdraw(selectedAccount, parseInt(amount));
+      const signature = await withdraw(selectedAccount as unknown as AnchorWallet, parseInt(amount));
       console.log("Transaction signature:", signature);
     } else {
       console.log("Wallet not connected");
