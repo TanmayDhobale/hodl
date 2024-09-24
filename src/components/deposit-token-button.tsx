@@ -11,7 +11,7 @@ interface DepositTokenButtonProps {
     userTokenAccount: PublicKey;
 }
 
-export function DepositTokenButton({ address, hodlAccount, userTokenAccount }: DepositTokenButtonProps) {
+export function DepositTokenButton({ address: _address, hodlAccount, userTokenAccount }: DepositTokenButtonProps) {
     const [showDepositModal, setShowDepositModal] = useState(false);
     const [amount, setAmount] = useState('');
     const { deposit } = useHodlProgram();
