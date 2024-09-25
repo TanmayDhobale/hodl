@@ -20,6 +20,8 @@ export function useGetBalance({ address }: { address: PublicKey }) {
   return useQuery({
     queryKey: ["get-balance", { endpoint: connection.rpcEndpoint, address }],
     queryFn: () => connection.getBalance(address),
+    staleTime: 30000,
+    gcTime: 3600000, 
   });
 }
 

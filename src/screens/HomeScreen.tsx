@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import { StyleSheet, View } from "react-native";
 import { Text, Button, TextInput } from "react-native-paper";
 import { useAuthorization } from "../utils/useAuthorization";
@@ -8,29 +8,29 @@ import { UserDepositInfo } from "../components/UserDepositInfo";
 export function HomeScreen() {
   const { selectedAccount } = useAuthorization();
   const [amount, setAmount] = useState("");
-  const { deposit, withdraw } = useHodlProgram();
+  const { deposit, withdraw } = useMemo(() => useHodlProgram(), []);
 
-  const handleDeposit = async () => {
+  const handleDeposit = useCallback(async () => {
     if (selectedAccount) {
       try {
         await deposit.mutateAsync({
           hodlAccount: selectedAccount.publicKey,
           amount: parseInt(amount),
-          userTokenAccount: selectedAccount.publicKey, // This should be the actual token account
+          userTokenAccount: selectedAccount.publicKey,
         });
         console.log("Deposit successful");
       } catch (error) {
         console.error("Error depositing:", error);
       }
     }
-  };
+  }, [selectedAccount, deposit, amount]);
 
   const handleWithdraw = async () => {
     if (selectedAccount) {
       try {
         await withdraw.mutateAsync({
           hodlAccount: selectedAccount.publicKey,
-          userTokenAccount: selectedAccount.publicKey, // This should be the actual token account
+          userTokenAccount: selectedAccount.publicKey,
         });
         console.log("Withdrawal successful");
       } catch (error) {
@@ -46,7 +46,9 @@ export function HomeScreen() {
       </Text>
       {selectedAccount ? (
         <View>
-          <UserDepositInfo />
+          <React.Suspense fallback={<Text>Loading...</Text>}>
+            <UserDepositInfo />
+          </React.Suspense>
           <TextInput
             placeholder="Amount"
             value={amount}
