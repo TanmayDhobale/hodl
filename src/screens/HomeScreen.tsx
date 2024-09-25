@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import { StyleSheet, View } from "react-native";
 import { Text, Button, TextInput } from "react-native-paper";
 import { useAuthorization } from "../utils/useAuthorization";
@@ -8,7 +8,7 @@ import { UserDepositInfo } from "../components/UserDepositInfo";
 export function HomeScreen() {
   const { selectedAccount } = useAuthorization();
   const [amount, setAmount] = useState("");
-  const { deposit, withdraw } = useMemo(() => useHodlProgram(), []);
+  const { deposit, withdraw } = useHodlProgram(); // Moved out of useMemo
 
   const handleDeposit = useCallback(async () => {
     if (selectedAccount) {
@@ -25,7 +25,7 @@ export function HomeScreen() {
     }
   }, [selectedAccount, deposit, amount]);
 
-  const handleWithdraw = async () => {
+  const handleWithdraw = useCallback(async () => {
     if (selectedAccount) {
       try {
         await withdraw.mutateAsync({
@@ -37,7 +37,7 @@ export function HomeScreen() {
         console.error("Error withdrawing:", error);
       }
     }
-  };
+  }, [selectedAccount, withdraw]);
 
   return (
     <View style={styles.screenContainer}>

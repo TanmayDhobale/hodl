@@ -1,4 +1,3 @@
-// Polyfills
 import "./src/polyfills";
 
 import { StyleSheet, useColorScheme } from "react-native";
