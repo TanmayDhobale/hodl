@@ -1,14 +1,21 @@
-// Learn more https://docs.expo.io/guides/customizing-metro
-const { getDefaultConfig } = require('expo/metro-config');
+const { getDefaultConfig } = require('metro-config');
 
-/** @type {import('expo/metro-config').MetroConfig} */
-const config = getDefaultConfig(__dirname);
-
-// Add polyfill resolvers
-config.resolver.extraNodeModules = {
-    crypto: require.resolve('expo-crypto'),   // Polyfill for crypto
-    assert: require.resolve('assert'),        // Polyfill for assert
-    buffer: require.resolve('buffer'),        // Polyfill for buffer
-};
-
-module.exports = config;
+module.exports = (async () => {
+  const {
+    resolver: { sourceExts, assetExts }
+  } = await getDefaultConfig();
+  return {
+    transformer: {
+      getTransformOptions: async () => ({
+        transform: {
+          experimentalImportSupport: false,
+          inlineRequires: true,
+        },
+      }),
+    },
+    resolver: {
+      sourceExts,
+      assetExts: [...assetExts, 'bin']
+    }
+  };
+})();
