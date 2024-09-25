@@ -4,6 +4,7 @@ const withAndroidMobileWalletAdapter = (config) => {
   return withAndroidManifest(config, async (config) => {
     const androidManifest = config.modResults.manifest;
 
+    // Add necessary intent filter for Solana Mobile Wallet Adapter
     const applicationElement = androidManifest['application'][0];
     const activityElement = applicationElement['activity'].find(
       (activity) => activity.$['android:name'] === '.MainActivity'
