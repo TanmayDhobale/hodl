@@ -11,20 +11,18 @@ import { SignInPayload } from "@solana-mobile/mobile-wallet-adapter-protocol";
 export function useMobileWallet() {
   const { authorizeSessionWithSignIn, authorizeSession, deauthorizeSession } =
     useAuthorization();
-
   const connect = useCallback(async (): Promise<Account> => {
     return await transact(async (wallet) => {
       return await authorizeSession(wallet);
     });
   }, [authorizeSession]);
-
   const signIn = useCallback(
     async (signInPayload: SignInPayload): Promise<Account> => {
       return await transact(async (wallet) => {
         return await authorizeSessionWithSignIn(wallet, signInPayload);
       });
     },
-    [authorizeSessionWithSignIn]
+    [authorizeSessionWithSignIn, authorizeSession]
   );
 
   const disconnect = useCallback(async (): Promise<void> => {

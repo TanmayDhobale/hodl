@@ -16,7 +16,8 @@
       "node_modules/react-native-paper/lib/commonjs/assets/**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.mishragini.mobiledapp"
     },
     "android": {
       "adaptiveIcon": {

@@ -9,6 +9,7 @@ module.exports = function (api) {
         alias: {
           '@components': './src/components',
           '@utils': './src/utils',
+          '@solana-mobile/mobile-wallet-adapter-protocol': '@solana-mobile/mobile-wallet-adapter-protocol/lib/esm/index.js',
         },
       }],
       'react-native-reanimated/plugin',
