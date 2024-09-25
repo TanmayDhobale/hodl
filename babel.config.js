@@ -6,6 +6,14 @@ module.exports = function(api) {
       production: {
         plugins: ['react-native-paper/babel'],
       },
-    },  
+    },
+    plugins: [
+      ['module-resolver', {
+        alias: {
+          '@components': './src/components',
+          '@utils': './src/utils',
+        },
+      }],
+    ],
   };
 };
