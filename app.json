@@ -37,7 +37,12 @@
       "@solana-mobile/mobile-wallet-adapter-protocol"
     ],
     "plugins": [
-      "./expo-plugins"
+      [
+        "@solana-mobile/mobile-wallet-adapter-protocol",
+        {
+          "reactNativeVersion": "0.73.6"
+        }
+      ]
     ]
   }
 }
